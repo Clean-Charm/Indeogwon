@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Master Frame - 배경음악 전용</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+        }
+        /* Iframe을 16:9 컨테이너처럼 사용 */
+        #contentFrame {
+            width: 100vw;
+            height: calc(100vw * 16 / 9); 
+            max-height: 100vh;
+            max-width: calc(100vh * 9 / 16);
+            border: none;
+            display: block;
+        }
+        #audioPlayer {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <audio id="audioPlayer" src="bgm.mp3" autoplay loop></audio>
+
+    <iframe id="contentFrame" src="index.html"></iframe>
+
+    <script>
+        // 모바일 환경 자동 재생 제한 우회를 위한 노력 (모든 환경에서 작동 보장X)
+        const audio = document.getElementById('audioPlayer');
+        document.addEventListener('click', () => {
+            if (audio.paused) {
+                audio.play().catch(e => console.log("자동 재생 실패:", e));
+            }
+        }, { once: true });
+    </script>
+</body>
+</html>
