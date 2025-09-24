@@ -4,78 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>메인 화면</title>
-    <style>
-        body {
-            overflow: hidden; 
-            margin: 0;
-            padding: 0;
-            width: 100%; /* Iframe 내에서는 100% 사용 */
-            height: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-            background-color: white; 
-        }
-        
-        .text-area {
-            text-align: center;
-            width: 80%;
-            margin: 2vw 0;
-            font-size: 3.5vw; /* 뷰포트 너비 기준으로 글자 크기 조정 */
-            color: #333;
-        }
-
-        #mainButton {
-            width: 40vw; 
-            /* 세로 길이는 16:9 비율 컨테이너 높이의 12%를 vw 기반으로 계산 */
-            height: calc(40vw * (16/9) * 0.12); 
-            
-            background-color: #3498db;
-            color: white;
-            font-size: 4vw; 
-            border: none;
-            /* 모서리 곡률 30% (높이의 30%를 사용하여 곡률 지정) */
-            border-radius: calc(40vw * (16/9) * 0.12 * 0.3); 
-            cursor: pointer;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-            transition: background-color 0.1s;
-            z-index: 10;
-        }
-        
-        #mainButton:active {
-            background-color: #2980b9;
-        }
-
-        #introOverlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: url('intro_image.jpg'); 
-            background-size: cover;
-            background-position: center;
-            z-index: 9999;
-            opacity: 1;
-            transition: opacity 1.5s ease-out; 
-            pointer-events: auto; 
-        }
-
-    </style>
-</head>
+    <link rel="stylesheet" href="styles.css"> </head>
 <body>
     
-    <div id="introOverlay"></div>
+    <div class="app-container">
+        <div id="introOverlay"></div>
 
-    <div class="text-area" id="topText">
-        환영합니다! 시작하려면 버튼을 누르세요.
-    </div>
+        <div class="text-area" style="margin-bottom: 2vh;"> 
+            환영합니다! 시작하려면 버튼을 누르세요.
+        </div>
 
-    <button id="mainButton">랜덤 페이지 이동</button>
+        <button id="mainButton" class="app-button">랜덤 페이지 이동</button>
 
-    <div class="text-area" id="bottomText">
-        행운의 페이지로 이동합니다.
+        <div class="text-area" style="margin-top: 2vh;"> 
+            행운의 페이지로 이동합니다.
+        </div>
     </div>
 
     <script>
@@ -97,13 +40,10 @@
             });
         });
 
-        // 버튼 클릭 시 랜덤 페이지로 이동 (Iframe 부모를 통해 이동)
+        // 버튼 클릭 시 랜덤 페이지로 이동 
         document.getElementById('mainButton').addEventListener('click', () => {
             const randomIndex = Math.floor(Math.random() * totalPages);
             const targetPage = pageFiles[randomIndex];
-            
-            // **핵심**: 현재 페이지가 Iframe 내에 있으므로,
-            // 부모 창의 location 대신 Iframe 자체의 location을 변경합니다.
             window.location.href = targetPage; 
         });
     </script>
