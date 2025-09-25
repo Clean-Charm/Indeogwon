@@ -6,9 +6,7 @@
     <title>Master Frame</title>
     <link rel="stylesheet" href="styles.css"> 
     <style>
-        /* master.html body는 styles.css의 흰색 배경을 따름 */
-        
-        /* Iframe이 전체 화면을 덮도록 유지 */
+        /* Iframe이 전체 화면을 덮도록 설정 */
         #contentFrame {
             width: 100vw;
             height: 100vh;
@@ -24,6 +22,7 @@
 
     <script>
         const audio = document.getElementById('audioPlayer');
+        // 사용자의 첫 클릭 시 음악 재생 시도
         document.addEventListener('click', () => {
             if (audio.paused) {
                 audio.play().catch(e => console.log("자동 재생 실패:", e));
