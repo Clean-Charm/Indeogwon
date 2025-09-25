@@ -8,11 +8,13 @@
 </head>
 <body>
     
-    <div class="app-container">
+    <div id="introOverlay"></div> 
+    
+    <div class="index-background-image"></div>
+    
+    <div class="main-content-wrapper">
         
         <div id="musicToggle" class="music-on"></div>
-
-        <div id="introOverlay"></div>
 
         <div class="text-area" style="margin-bottom: 2vh;"> 
             환영합니다! 시작하려면 버튼을 누르세요.
@@ -26,6 +28,7 @@
     </div>
 
     <script>
+        // (JavaScript 코드는 변경 없음)
         const totalPages = 50;
         const pageFiles = [];
         for (let i = 1; i <= totalPages; i++) {
@@ -37,12 +40,10 @@
 
         // --- 인트로 페이드아웃 로직 (1.5초 고정 + 1초 페이드아웃) ---
         window.addEventListener('load', () => {
-            // 1. 1500ms (1.5초) 동안 기다린 후, 페이드아웃 시작 (opacity=0)
             setTimeout(() => {
                 introOverlay.style.opacity = '0';
             }, 1500); 
 
-            // 2. CSS transition(1.0s)이 끝난 후 터치 불가능하게 설정
             introOverlay.addEventListener('transitionend', () => {
                 introOverlay.style.pointerEvents = 'none';
             });
