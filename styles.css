@@ -119,14 +119,21 @@ body {
 /* --- 메인 버튼 (index.html) --- */
 #mainButton {
     position: absolute; 
-    /* 기존 top: 38%에서 200px 위로 올림 */
-    top: calc(38% - 200px); 
+    
+    /* ⭐⭐ 이 부분이 변경됩니다. ⭐⭐ */
+    /* top: 20%를 계산. 
+       - main-content-wrapper의 높이는 100vw * var(--image-aspect-ratio-index) 입니다. 
+       - 해당 높이의 20% 지점에 위치하도록 계산합니다. */
+    top: calc(100vw * var(--image-aspect-ratio-index) * 0.20); 
+    
     left: 50%;
     transform: translateX(-50%); 
     
+    /* 크기는 그대로 유지합니다 (화면 비율에 맞춰짐) */
     width: 50vw; 
     height: 12vw; 
 
+    /* ... (나머지 스타일 유지) ... */
     background-color: #92e071;
     border-radius: 20px; 
     box-shadow: 0 5px #74b35e; 
