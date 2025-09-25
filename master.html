@@ -4,14 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Master Frame</title>
-    <link rel="stylesheet" href="styles.css"> <style>
-        /* master.html 고유 스타일 (CSS 파일에 넣지 않음) */
-        body { background-color: var(--light-green); } /* master.html도 연한 초록색 */
+    <link rel="stylesheet" href="styles.css"> 
+    <style>
+        /* master.html body는 styles.css의 흰색 배경을 따릅니다. */
+        
+        /* Iframe이 전체 화면을 덮도록 수정 */
         #contentFrame {
             width: 100vw;
-            height: calc(100vw * 16 / 9); 
-            max-height: 100vh;
-            max-width: calc(100vh * 9 / 16);
+            height: 100vh;
             border: none;
             display: block;
         }
@@ -20,12 +20,10 @@
 </head>
 <body>
     <audio id="audioPlayer" src="bgm.mp3" autoplay loop></audio>
-
     <iframe id="contentFrame" src="index.html"></iframe>
 
     <script>
         const audio = document.getElementById('audioPlayer');
-        // 사용자의 첫 상호작용(클릭) 시 음악 재생 시도
         document.addEventListener('click', () => {
             if (audio.paused) {
                 audio.play().catch(e => console.log("자동 재생 실패:", e));
