@@ -17,11 +17,10 @@
         <div id="musicToggle" class="music-on"></div>
 
         <button id="mainButton">카드 뽑기</button>
-
-        </div>
+        
+    </div>
 
     <script>
-        // (JavaScript 코드는 변경 없음)
         const totalPages = 50;
         const pageFiles = [];
         for (let i = 1; i <= totalPages; i++) {
@@ -42,7 +41,7 @@
             });
         });
 
-        // 음악 ON/OFF 로직 (master.html의 audio에 접근)
+        // 음악 ON/OFF 로직
         musicToggle.addEventListener('click', () => {
             const audio = window.parent.document.getElementById('audioPlayer');
             
