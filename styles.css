@@ -2,55 +2,7 @@
     styles.css
 */
 
-:root {
-    /* 891x1260px 이미지의 비율 변수 (0.7071) */
-    --image-aspect-ratio-index: calc(1260 / 891); 
-    /* 16:9 비율 변수 (1.777) */
-    --aspect-ratio-page: calc(16 / 9); 
-}
-
-/* --- 공통 레이아웃 (모든 페이지 body에 적용) --- */
-body {
-    background-color: white; 
-    overflow: hidden; 
-    margin: 0;
-    padding: 0;
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-/* --- index.html을 위한 중앙 정렬 컨테이너 --- */
-.main-content-wrapper {
-    position: relative;
-    
-    /* 화면 너비를 꽉 채우되, 높이는 배경 이미지 비율을 유지 */
-    width: 100vw;
-    height: calc(100vw * var(--image-aspect-ratio-index)); 
-    max-height: 100vh;
-    max-width: calc(100vh / var(--image-aspect-ratio-index)); 
-    
-    z-index: 10;
-}
-
-
-/* --- 메인 페이지 배경 이미지 (index.html) --- */
-.index-background-image {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-image: url('index_background.jpg');
-    
-    /* 가로폭 맞춤 및 중앙 정렬 */
-    background-size: contain; 
-    background-repeat: no-repeat;
-    background-position: center center; 
-    z-index: 1; 
-}
-
+/* ... (중략) ... */
 
 /* --- 연결 페이지 (pageXX.html) 스타일 --- */
 .app-container-page {
@@ -60,6 +12,9 @@ body {
     height: calc(100vw * var(--aspect-ratio-page)); 
     max-height: 100vh;
     max-width: calc(100vh / var(--aspect-ratio-page));
+    
+    /* ⭐ 이 줄을 추가합니다. 16:9 박스의 배경을 흰색으로 강제 지정 */
+    background-color: white;
     
     display: flex;
     flex-direction: column;
@@ -77,92 +32,4 @@ body {
     background-position: center center;
 }
 
-
-/* --- 인트로 오버레이 --- */
-#introOverlay {
-    position: fixed; 
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-image: url('intro_image.jpg'); 
-    background-size: contain; 
-    background-repeat: no-repeat;
-    background-position: center center;
-    z-index: 9999;
-    opacity: 1;
-    transition: opacity 1.0s ease-out; 
-    pointer-events: auto; 
-}
-
-/* 텍스트 영역 공통 스타일 (pageXX.html에서 사용) */
-.text-area {
-    text-align: center;
-    width: 80%;
-    font-size: 3.5vw; 
-    color: black;
-}
-
-/* --- 음악 ON/OFF 아이콘 (우측 상단) --- */
-#musicToggle {
-    position: absolute;
-    top: 2vw; 
-    right: 2vw;
-    width: 8vw; 
-    height: 8vw;
-    background-size: cover;
-    background-position: center;
-    cursor: pointer;
-    z-index: 100;
-}
-.music-on {
-    background-image: url('music_on_icon.png');
-}
-.music-off {
-    background-image: url('music_off_icon.png');
-}
-
-
-/* --- 메인 버튼 스타일 (index.html) --- */
-#mainButton {
-    position: absolute; 
-    
-    /* 기존 top: 38% 지점에서 200px 위로 올림 */
-    top: calc(38% - 200px); 
-    left: 50%;
-    transform: translateX(-50%); 
-    
-    /* 크기 (화면 너비의 약 50%와 그에 맞는 높이) */
-    width: 50vw; 
-    height: 12vw; 
-
-    background-color: #92e071;
-    border-radius: 20px; 
-    box-shadow: 0 5px #74b35e; 
-    border: 2px solid #639c4f; 
-    color: white; 
-    font-size: 4.5vw; 
-    font-weight: bold; 
-    text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
-    background-image: none; 
-    
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 10;
-}
-
-#mainButton:active {
-    background-color: #74b35e; 
-    box-shadow: 0 2px #5e8c4b; 
-    transform: translateX(-50%) translateY(3px); 
-}
-
-/* '마음 두드림' (#mainTopText) 및 '마음 질문 카드' (#mainMiddleText) CSS는 삭제됨 */
-
-
-/* --- pageXX.html 전용 스타일 유지 --- */
-#topTextOnPage { /* ... */ }
-#centerText { /* ... */ }
-#backButton { /* ... */ }
-#homeButton { /* ... */ }
+/* ... (이하 중략) ... */
