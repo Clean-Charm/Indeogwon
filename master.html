@@ -21,13 +21,13 @@
     <iframe id="contentFrame" src="index.html"></iframe>
 
     <script>
-        const audio = document.getElementById('audioPlayer');
-        // 사용자의 첫 클릭 시 음악 재생 시도
-        document.addEventListener('click', () => {
-            if (audio.paused) {
-                audio.play().catch(e => console.log("자동 재생 실패:", e));
-            }
-        }, { once: true });
-    </script>
+    const audio = document.getElementById('audioPlayer');
+    // 사용자의 첫 클릭 시 음악 재생 시도
+    document.addEventListener('click', () => {
+        if (audio.paused) {
+            audio.play().catch(e => console.log("자동 재생 실패:", e));
+        }
+    }, { once: true });
+</script>
 </body>
 </html>
