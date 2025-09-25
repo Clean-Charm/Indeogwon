@@ -1,59 +1,71 @@
 /*
     styles.css
-    모든 페이지의 공통 레이아웃 및 스타일을 정의합니다.
 */
 
 :root {
-    /* 변수: 연한 초록색 배경 */
     --light-green: #e6ffe6; 
-    /* 변수: 컨테이너 세로 비율 (9:16) */
     --aspect-ratio: calc(16 / 9); 
 }
 
-/* 기본 설정: 스크롤 방지, 꽉 찬 화면 */
+/* --- 공통 레이아웃 --- */
 body {
     overflow: hidden; 
     margin: 0;
     padding: 0;
     min-height: 100vh;
-    background-color: var(--light-green); /* 연한 초록색 배경 */
+    background-color: var(--light-green);
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-/* 앱 컨테이너 (16:9 비율 유지 영역) */
 .app-container {
     position: relative;
-    /* 뷰포트 너비/높이에 맞춰 16:9 비율을 유지하며 화면을 채우도록 설정 */
     width: 100vw;
     height: calc(100vw * var(--aspect-ratio)); 
     max-height: 100vh;
     max-width: calc(100vh / var(--aspect-ratio));
     
-    /* 플렉스박스로 자식 요소(텍스트, 버튼)를 세로 중앙 정렬 */
     display: flex;
     flex-direction: column;
-    justify-content: center; /* 수직 중앙 정렬 */
-    align-items: center; /* 수평 중앙 정렬 */
+    justify-content: center;
+    align-items: center;
 
-    background-color: white; /* Iframe 내 배경은 흰색 유지 (이미지 또는 컨텐츠를 위해) */
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2); /* 앱처럼 보이게 그림자 추가 */
+    background-color: white; 
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2); 
 }
 
 /* 텍스트 영역 공통 스타일 */
 .text-area {
     text-align: center;
     width: 80%;
-    /* 폰트 크기를 vw로 설정하여 모바일 크기에 반응 */
     font-size: 3.5vw; 
-    color: #333;
+    color: black;
 }
 
-/* 메인 버튼 공통 스타일 */
+/* --- 음악 ON/OFF 아이콘 (우측 상단) --- */
+#musicToggle {
+    position: absolute;
+    top: 4vw;
+    right: 4vw;
+    width: 8vw; 
+    height: 8vw;
+    background-size: cover;
+    background-position: center;
+    cursor: pointer;
+    z-index: 100;
+}
+.music-on {
+    background-image: url('music_on_icon.png');
+}
+.music-off {
+    background-image: url('music_off_icon.png');
+}
+
+
+/* --- 이미지 기반 버튼 스타일 공통 --- */
 .app-button {
-    background-color: #3498db;
-    color: white;
+    color: black; 
     font-size: 4vw; 
     border: none;
     cursor: pointer;
@@ -63,29 +75,71 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    
+    background-color: transparent; 
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    
+    border-radius: 8px; 
+    padding: 0;
 }
 
-.app-button:active {
-    background-color: #2980b9;
-}
-
-
-/* --- index.html 전용 스타일 --- */
-
+/* 메인 버튼 스타일 */
 #mainButton {
-    /* 가로 길이: 컨테이너 너비의 40% */
     width: 40vw; 
-    /* 세로 길이: 높이의 12%를 vw 기반으로 계산 */
-    height: calc(40vw * var(--aspect-ratio) * 0.12); 
-    
-    /* 모서리 곡률 30% */
-    border-radius: calc(40vw * var(--aspect-ratio) * 0.12 * 0.3); 
-    
-    margin: 3vh 0; /* 버튼 위아래 간격 추가 */
+    height: 10vw; 
+    margin: 3vh 0; 
+    background-image: url('main_button_image.png');
 }
+
+
+/* --- 인트로 오버레이 --- */
+#introOverlay {
+    /* 기존 스타일 유지 */
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('intro_image.jpg'); 
+    background-size: cover;
+    background-position: center;
+    z-index: 9999;
+    opacity: 1;
+    transition: opacity 1.0s ease-out; 
+    pointer-events: auto; 
+}
+
+
+/* --- 연결 페이지 공통 배경 --- */
+.common-page-background {
+    background-image: url('page_background.png'); 
+    background-size: cover;
+    background-position: center;
+}
+
 
 /* --- pageXX.html 전용 스타일 --- */
 
+/* **새로운: 화면 맨 위 1/3 지점 텍스트** */
+#topTextOnPage {
+    position: absolute;
+    /* Y축 위치: 전체 높이의 33.33% (1/3 지점) */
+    top: 33.33%; 
+    left: 50%;
+    transform: translate(-50%, -50%); /* X축 중앙 정렬 */
+    text-align: center;
+    width: 80%;
+    padding: 2vw;
+    background-color: rgba(255, 255, 255, 0.8); /* 흰색 배경으로 가독성 확보 */
+    color: #333;
+    font-size: 4vw; 
+    border-radius: 1vw;
+    z-index: 10;
+}
+
+/* 기존: 중앙 텍스트 */
 #centerText {
     position: absolute;
     top: 50%;
@@ -100,41 +154,31 @@ body {
     z-index: 10;
 }
 
+/* **새로운: 뒤로가기 버튼** (우측 상단) */
+#backButton {
+    position: absolute;
+    top: 4vw;
+    right: 4vw;
+    width: 10vw; 
+    height: 10vw;
+    background-image: url('back_button_icon.png'); /* 뒤로가기 아이콘 이미지 파일명 */
+    background-color: rgba(0, 0, 0, 0.5); /* 버튼 영역 확인용 배경 */
+    background-size: 70%; /* 아이콘 크기 조정 */
+    background-repeat: no-repeat;
+    background-position: center;
+    border-radius: 50%; /* 원형 버튼으로 시인성 확보 */
+    border: none;
+    cursor: pointer;
+    z-index: 100;
+}
+
+/* 기존: 처음으로 버튼 (우측 하단) */
 #homeButton {
     position: absolute;
     right: 4vw; 
     bottom: 4vw;
-    
     width: 20vw; 
-    height: calc(20vw * var(--aspect-ratio) * 0.08); 
-    
-    background-color: #e74c3c;
-    border-radius: calc(20vw * var(--aspect-ratio) * 0.08 * 0.3); 
-    z-index: 100; /* 최상단에 표시 */
-    
-    /* 텍스트 크기 오버라이드 */
-    font-size: 3vw; 
-}
-
-#homeButton:active {
-    background-color: #c0392b;
-}
-
-/* 인트로 오버레이 스타일 */
-#introOverlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-image: url('intro_image.jpg'); 
-    background-size: cover;
-    background-position: center;
-    z-index: 9999; 
-    opacity: 1; 
-    
-    /* 여기서 페이드아웃 시간을 1초로 수정합니다. */
-    transition: opacity 1.0s ease-out; 
-    
-    pointer-events: auto; 
+    height: 5vw; 
+    background-image: url('home_button_image.png');
+    z-index: 100;
 }
