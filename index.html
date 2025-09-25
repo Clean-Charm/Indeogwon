@@ -4,52 +4,73 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>메인 화면</title>
-    <link rel="stylesheet" href="styles.css"> </head>
+    <link rel="stylesheet" href="styles.css"> 
+</head>
 <body>
     
     <div class="app-container">
+        
+        <div id="musicToggle" class="music-on"></div>
+
         <div id="introOverlay"></div>
 
         <div class="text-area" style="margin-bottom: 2vh;"> 
-            마음 질문 카드
+            환영합니다! 시작하려면 버튼을 누르세요.
         </div>
 
-        <button id="mainButton" class="app-button">카드 뽑기!</button>
+        <button id="mainButton" class="app-button">START</button>
 
         <div class="text-area" style="margin-top: 2vh;"> 
-            Let's talk!
+            행운의 페이지로 이동합니다.
         </div>
     </div>
 
     <script>
-    const totalPages = 50;
-    const pageFiles = [];
-    for (let i = 1; i <= totalPages; i++) {
-        pageFiles.push(`page${String(i).padStart(2, '0')}.html`); 
-    }
+        const totalPages = 50;
+        const pageFiles = [];
+        for (let i = 1; i <= totalPages; i++) {
+            pageFiles.push(`page${String(i).padStart(2, '0')}.html`); 
+        }
 
-    const introOverlay = document.getElementById('introOverlay');
+        const introOverlay = document.getElementById('introOverlay');
+        const musicToggle = document.getElementById('musicToggle');
 
-    // 인트로 페이드아웃 및 터치 방지 로직 수정
-    window.addEventListener('load', () => {
-        // 1. 1000ms (1초) 동안 기다린 후, 페이드아웃 시작 (opacity를 0으로 변경)
-        setTimeout(() => {
-            introOverlay.style.opacity = '0';
-        }, 1500); 
+        // --- 인트로 페이드아웃 로직 (1.5초 고정 + 1초 페이드아웃) ---
+        window.addEventListener('load', () => {
+            // 1. 1500ms (1.5초) 동안 기다린 후, 페이드아웃 시작 (opacity=0)
+            setTimeout(() => {
+                introOverlay.style.opacity = '0';
+            }, 1500); 
 
-        // 2. CSS transition(1.0s)이 끝나는 시점 (총 2초 후)에 터치 불가능하게 설정
-        // transitionend는 opacity가 0이 되는 애니메이션이 완료될 때 실행됩니다.
-        introOverlay.addEventListener('transitionend', () => {
-            introOverlay.style.pointerEvents = 'none';
+            // 2. CSS transition(1.0s)이 끝난 후 터치 불가능하게 설정
+            introOverlay.addEventListener('transitionend', () => {
+                introOverlay.style.pointerEvents = 'none';
+            });
         });
-    });
 
-    // 버튼 클릭 시 랜덤 페이지로 이동 
-    document.getElementById('mainButton').addEventListener('click', () => {
-        const randomIndex = Math.floor(Math.random() * totalPages);
-        const targetPage = pageFiles[randomIndex];
-        window.location.href = targetPage; 
-    });
-</script>
+        // --- 음악 ON/OFF 로직 (master.html의 audio에 접근) ---
+        musicToggle.addEventListener('click', () => {
+            const audio = window.parent.document.getElementById('audioPlayer');
+            
+            if (audio) {
+                if (audio.paused) {
+                    audio.play().then(() => {
+                        musicToggle.classList.replace('music-off', 'music-on');
+                    }).catch(e => console.log("음악 재생 실패:", e));
+                } else {
+                    audio.pause();
+                    musicToggle.classList.replace('music-on', 'music-off');
+                }
+            }
+        });
+
+
+        // 버튼 클릭 시 랜덤 페이지로 이동 
+        document.getElementById('mainButton').addEventListener('click', () => {
+            const randomIndex = Math.floor(Math.random() * totalPages);
+            const targetPage = pageFiles[randomIndex];
+            window.location.href = targetPage; 
+        });
+    </script>
 </body>
 </html>
