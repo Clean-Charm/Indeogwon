@@ -20,50 +20,64 @@
         
     </div>
 
-    <script>
-        const totalPages = 50;
-        const pageFiles = [];
-        for (let i = 1; i <= totalPages; i++) {
-            pageFiles.push(`page${String(i).padStart(2, '0')}.html`); 
+ <script>
+    // (이전 코드 유지: totalPages, pageFiles 정의)
+    const totalPages = 50;
+    const pageFiles = [];
+    for (let i = 1; i <= totalPages; i++) {
+        pageFiles.push(`page${String(i).padStart(2, '0')}.html`); 
+    }
+
+    const introOverlay = document.getElementById('introOverlay');
+    const musicToggle = document.getElementById('musicToggle');
+
+    // --- 인트로 페이드아웃 로직 (유지) ---
+    window.addEventListener('load', () => {
+        setTimeout(() => {
+            introOverlay.style.opacity = '0';
+        }, 1500); 
+
+        introOverlay.addEventListener('transitionend', () => {
+            introOverlay.style.pointerEvents = 'none';
+        });
+    });
+
+    // --- ⭐ 음악 ON/OFF 로직 (수정 및 안정화) ⭐ ---
+    musicToggle.addEventListener('click', () => {
+        // 부모 창 (master.html)에서 audioPlayer를 가져옵니다.
+        const audio = window.parent.document.getElementById('audioPlayer');
+        
+        if (!audio) {
+            console.error("오디오 플레이어를 찾을 수 없습니다.");
+            return; // 오디오가 없으면 함수 종료
         }
 
-        const introOverlay = document.getElementById('introOverlay');
-        const musicToggle = document.getElementById('musicToggle');
-
-        // 인트로 페이드아웃 로직 (1.5초 고정 + 1초 페이드아웃)
-        window.addEventListener('load', () => {
-            setTimeout(() => {
-                introOverlay.style.opacity = '0';
-            }, 1500); 
-
-            introOverlay.addEventListener('transitionend', () => {
-                introOverlay.style.pointerEvents = 'none';
+        if (audio.paused) {
+            // 재생 시도
+            audio.play().then(() => {
+                // 재생 성공 시 클래스 변경
+                musicToggle.classList.replace('music-off', 'music-on');
+            }).catch(e => {
+                // 재생 실패 (주로 브라우저 제한)
+                console.log("음악 재생 실패:", e);
+                // 강제로 클래스를 'off'로 유지하여 시각적 오류 방지
+                musicToggle.classList.replace('music-on', 'music-off'); 
             });
-        });
+        } else {
+            // 일시 정지
+            audio.pause();
+            // 일시 정지 성공 시 클래스 변경
+            musicToggle.classList.replace('music-on', 'music-off');
+        }
+    });
+    // --- ⭐ 음악 ON/OFF 로직 끝 ⭐ ---
 
-        // 음악 ON/OFF 로직
-        musicToggle.addEventListener('click', () => {
-            const audio = window.parent.document.getElementById('audioPlayer');
-            
-            if (audio) {
-                if (audio.paused) {
-                    audio.play().then(() => {
-                        musicToggle.classList.replace('music-off', 'music-on');
-                    }).catch(e => console.log("음악 재생 실패:", e));
-                } else {
-                    audio.pause();
-                    musicToggle.classList.replace('music-on', 'music-off');
-                }
-            }
-        });
-
-
-        // 버튼 클릭 시 랜덤 페이지로 이동 
-        document.getElementById('mainButton').addEventListener('click', () => {
-            const randomIndex = Math.floor(Math.random() * totalPages);
-            const targetPage = pageFiles[randomIndex];
-            window.location.href = targetPage; 
-        });
-    </script>
+    // 버튼 클릭 시 랜덤 페이지로 이동 
+    document.getElementById('mainButton').addEventListener('click', () => {
+        const randomIndex = Math.floor(Math.random() * totalPages);
+        const targetPage = pageFiles[randomIndex];
+        window.location.href = targetPage; 
+    });
+</script>
 </body>
 </html>
