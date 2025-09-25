@@ -33,6 +33,23 @@ body {
 }
 
 /* --- pageXX.html (연결 페이지) 16:9 컨테이너 --- */
+.app-container {
+    position: relative;
+    /* 16:9 비율 유지 */
+    width: 100vw;
+    height: calc(100vw * var(--aspect-ratio-page)); 
+    max-height: 100vh;
+    max-width: calc(100vh / var(--aspect-ratio-page));
+    
+    background-color: white; /* 배경 이미지 여백을 흰색으로 채움 */
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2); 
+}
+
 .app-container-page {
     position: relative;
     width: 100vw;
