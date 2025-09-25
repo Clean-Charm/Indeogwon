@@ -16,15 +16,12 @@
         
         <div id="musicToggle" class="music-on"></div>
 
-        <div class="text-area" style="margin-bottom: 2vh;"> 
-            
-        </div>
+        <div id="mainTopText">마음 두드림</div> 
 
-        <button id="mainButton" class="app-button">&nbsp;&nbsp;카드 뽑기</button>
+        <button id="mainButton">카드 뽑기</button>
 
-        <div class="text-area" style="margin-top: 2vh;"> 
-           
-        </div>
+        <div id="mainMiddleText">마음질문<br>카드</div> 
+        
     </div>
 
     <script>
@@ -38,7 +35,7 @@
         const introOverlay = document.getElementById('introOverlay');
         const musicToggle = document.getElementById('musicToggle');
 
-        // --- 인트로 페이드아웃 로직 (1.5초 고정 + 1초 페이드아웃) ---
+        // 인트로 페이드아웃 로직 (1.5초 고정 + 1초 페이드아웃)
         window.addEventListener('load', () => {
             setTimeout(() => {
                 introOverlay.style.opacity = '0';
@@ -49,7 +46,7 @@
             });
         });
 
-        // --- 음악 ON/OFF 로직 (master.html의 audio에 접근) ---
+        // 음악 ON/OFF 로직 (master.html의 audio에 접근)
         musicToggle.addEventListener('click', () => {
             const audio = window.parent.document.getElementById('audioPlayer');
             
